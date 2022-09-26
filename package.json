@@ -1,0 +1,22 @@
+{
+  "name": "electronhome",
+  "version": "1.0.0",
+  "description": "server.js",
+  "main": "index.js",
+  "scripts": {
+    "start":"node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philiphou/Electron-s-Home.git"
+  },
+  "author": "philip hou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/philiphou/Electron-s-Home/issues"
+  },
+  "homepage": "https://github.com/philiphou/Electron-s-Home#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
