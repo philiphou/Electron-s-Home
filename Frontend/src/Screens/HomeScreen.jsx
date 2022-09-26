@@ -1,9 +1,20 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
-import products from "../products";
+import axios from 'axios'
+
 import Product from "../Components/Product";
 
 export default function HomeScreen() {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    console.log("helloworld");
+    const fetchProducts = async()=>{
+      const {data}= await axios.get('/api/products')
+      setProducts(data)
+    }
+    fetchProducts()
+  }, []);// when array is empty, useEffect will be executed only first time when component rendered
   return (
     <>
       <h1>Latest Product</h1>
