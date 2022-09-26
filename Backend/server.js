@@ -8,7 +8,7 @@ app.get('/api/products',(req,res)=>{
     res.json(products)
 })
 app.get('/api/products/:id',(req,res)=>{
-    console.log(req.params)
+
     const product = products.find(e=>(e._id===req.params.id))
     res.json(product)
    
