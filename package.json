@@ -7,7 +7,7 @@
     "start": "node Backend/server",
     "server": "nodemon Backend/server",
     "client": " npm start --prefix Frontend",
-    "dev":"concurrently \"npm run server\" \" npm run client\""
+    "dev": "concurrently \"npm run server\" \"cross-env PORT=3000 npm run client\""
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "nodemon": "^2.0.20"
   },
   "devDependencies": {
-    "concurrently": "^7.4.0"
+    "concurrently": "^7.4.0",
+    "cross-env": "^7.0.3"
   }
 }
