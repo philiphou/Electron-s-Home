@@ -24,7 +24,7 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    descripton: {
+    description: {
       type: String,
       required: true,
     },
@@ -48,5 +48,5 @@ const productSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-const Product = mongoose.model("User", productSchema);
+const Product = mongoose.model("Product", productSchema);
 export default Product;
