@@ -1,8 +1,13 @@
-const express=require('express')
+import express from 'express'
 const app = express()
-const products=require('./data/products')
-const dotenv=require('dotenv')
+import products from './data/products.js'
+import dotenv from 'dotenv'
+import colors from 'colors'
+import connectDB from './config/db.js'
+
 dotenv.config()
+
+connectDB()
 
 app.get('/',(req,res)=>{
     res.send('we are now good to go')
@@ -16,7 +21,7 @@ app.get('/api/products/:id',(req,res)=>{
     res.json(product)
    
 })
-const port = process.env.PORT
+const port = process.env.PORT || 5001
 app.listen(port,()=>{
     console.log(`server is on at ${port}`)
 })
