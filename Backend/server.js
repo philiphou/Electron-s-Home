@@ -1,24 +1,25 @@
 import express from "express";
 const app = express();
-import products from "./data/products.js";
+
 import dotenv from "dotenv";
+import productRoutes from './routes/productRoutes.js'
 
 import connectDB from "./config/db.js";
+
+import {notFound,errorHandler} from './middlewares/errorMiddleware.js'
 
 dotenv.config();
 
 connectDB();
 
-app.get("/", (req, res) => {
-  res.send("we are now good to go");
-});
-app.get("/api/products", (req, res) => {
-  res.json(products);
-});
-app.get("/api/products/:id", (req, res) => {
-  const product = products.find((e) => e._id === req.params.id);
-  res.json(product);
-});
+app.use('/api/products',productRoutes)
+
+//  
+app.use()
+
+//  global error taken
+
+app.use()
 const port = process.env.PORT || 5001;
 app.listen(port, () => {
   console.log(`server is on at ${port}`);
