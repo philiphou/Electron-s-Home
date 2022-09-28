@@ -33,7 +33,7 @@ export default function ProductScreen(history) {
     dispatch(listProductDetail(a.id));
   }, [dispatch]);
   const addToCartHandler = () => {
-    const path=`/cart/id=${a.id}?qty=${qty}`
+    const path=`/cart/${a.id}?qty=${qty}`
     navigate(path) 
   };
   return (
