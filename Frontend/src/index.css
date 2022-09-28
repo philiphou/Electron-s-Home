@@ -3,5 +3,6 @@ main{
 }
 .pimg{
   width: 220px;
-  height:220px
+  height:210px;
+  margin:auto;
 }
