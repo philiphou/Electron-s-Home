@@ -15,5 +15,6 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       qty,
     },
   });
-  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+  //  getState() hook will get all the state factors from store
+    localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };

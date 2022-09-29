@@ -16,48 +16,50 @@ import { Link } from "react-router-dom";
 export default function CartScreen() {
   const a = useParams();
   const [search, setSearch] = useSearchParams();
-  console.log(a);
   const qty = search.get("qty");
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
   useEffect(() => {
-    dispatch(addToCart(a.id, qty), [dispatch, a.id, qty]);
-  });
+    if (a.id) {
+      dispatch(addToCart(a.id, qty));
+    }
+  }, [dispatch, a.id, qty]);
   return (
     <Row>
       <Col md={8}>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message>
-            {" "}
             Your Cart is empty <Link to="/">Go Shopping</Link>
           </Message>
         ) : (
           <ListGroup variant="fluid">
-            {cartItems.map((e) => (
-              <ListGroupItem key={e.product}>
+            {cartItems.map((x) => (
+              <ListGroupItem key={x.product}>
                 <Row>
                   <Col md={2}>
-                    <Image src={e.image} alt={e.name} fluid rounded />
+                    <Image src={x.image} alt={x.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${e.product}`}>{e.name}</Link>
+                    <Link to={`/products/${x.product}`}>{x.name}</Link>
                   </Col>
                   <Col md={2}>
-                    <strong>Price:{e.price}</strong>
+                    <strong>Price:{x.price}</strong>
                   </Col>
                   <Col md={2}>
                     <Form.Control
                       as="select"
-                      value={e.qty}
+                      value={x.qty}
                       onChange={(e) => {
-                        dispatch(addToCart(e.product, Number(e.target.value)));
+                        const a = e.target.value;
+                        console.log(a, typeof a);
+                        dispatch(addToCart(x.product, Number(a)));
                       }}
                     >
-                      {[...Array(e.countInStock).keys()].map((e) => (
-                        <option key={e + 1}>{e + 1}</option>
+                      {[...Array(x.countInStock).keys()].map((el) => (
+                        <option key={el + 1}>{el + 1}</option>
                       ))}
                     </Form.Control>
                   </Col>

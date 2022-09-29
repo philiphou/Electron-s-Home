@@ -10,7 +10,6 @@ const reducer = combineReducers({
   productDetail: productDetailReducer,
   cart:cartReducer
 });
-const cartItemsFromStorage=localStorage.getItem('cartItems')?JSON.parse(localStorage.getItem('cartItems')):[]
-const initialState={cart:{cartItems:cartItemsFromStorage}}
-const store = configureStore({ reducer,preloadedState: initialState });
+
+const store = configureStore({ reducer});
 export default store;

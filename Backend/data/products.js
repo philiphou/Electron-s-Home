@@ -11,7 +11,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-2",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",
@@ -22,7 +22,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-3",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",
@@ -33,7 +33,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-4",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",
@@ -44,7 +44,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-5",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",
@@ -55,7 +55,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-6",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",
@@ -66,7 +66,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-7",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",
@@ -77,7 +77,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-8",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",
@@ -88,7 +88,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-9",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",
@@ -99,7 +99,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-10",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",
@@ -110,7 +110,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-11",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",
@@ -121,7 +121,7 @@ const products = [
     numReviews: 20,
   },
   {
-    name: "Accutron-1",
+    name: "Accutron-12",
     image: "/images/Accutron/Accutron-1.jpg",
     description: "Great deal and best choice",
     brand: "Apple",

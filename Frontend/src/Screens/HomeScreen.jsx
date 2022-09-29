@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import {useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,7 +12,6 @@ import Loader from "../Components/Loader";
 export default function HomeScreen() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => {
-    console.log(state);
     return state.productList;
   });
 

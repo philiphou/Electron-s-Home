@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Components/Loader";
 import Message from "../Components/Message";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   Row,
@@ -22,19 +22,19 @@ import { listProductDetail } from "../actions/productActions";
 import Rating from "../Components/Rating";
 
 export default function ProductScreen(history) {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const productDetail = useSelector((state) => state.productDetail);
   const { loading, error, product } = productDetail;
   const a = useParams();
-  console.log(a); // 输出： {id:2}
+
   useEffect(() => {
     dispatch(listProductDetail(a.id));
   }, [dispatch]);
   const addToCartHandler = () => {
-    const path=`/cart/${a.id}?qty=${qty}`
-    navigate(path) 
+    const path = `/cart/${a.id}?qty=${qty}`;
+    navigate(path);
   };
   return (
     <>
