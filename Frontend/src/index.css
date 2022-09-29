@@ -6,3 +6,19 @@ main{
   height:210px;
   margin:auto;
 }
+h2{
+  font-size: 1.4rem;
+  padding: 1rem;
+
+}
+h1{
+  font-size: 1.8rem;
+  padding: 1.2rem;
+
+}
+h3{
+  font-size: 1.2rem;
+  padding: 0.8rem;
+  margin:0,auto;
+
+}
