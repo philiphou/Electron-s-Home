@@ -3,7 +3,7 @@ const app = express();
 
 import dotenv from "dotenv";
 import productRoutes from "./routes/productRoutes.js";
-import userRoutes from './routes/userRoutes.js'
+import userRoutes from "./routes/userRoutes.js";
 
 import connectDB from "./config/db.js";
 
@@ -13,12 +13,14 @@ dotenv.config();
 
 connectDB();
 // middleware to parse json data
-app.use(express.json())
+app.use(express.json());
 
 app.use("/api/products", productRoutes);
+
 app.use("/api/users", userRoutes);
 
 //
+
 app.use(notFound);
 
 //  global error taken
