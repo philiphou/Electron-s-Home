@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import FormContainer from "../Components/FormContainer";
 import { Link } from "react-router-dom";
@@ -12,19 +12,21 @@ const LoginScreen = (location) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const user= useSelector((state) => state.user);
-  console.log(user)
-  const { loading, error,userInfo} = user;
+  const user = useSelector((state) => state.user);
+
+  const { loading, error, userInfo } = user;
+
   const navigate = useNavigate();
-  const redirect = location.search?location.search.split('=')[1]:'/'
+  const redirect = location.search ? location.search.split("=")[1] : "/";
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
     }
-  }, [userInfo,redirect]);
-  const submitHandler = (e) => {
+  }, [userInfo, redirect]);
+  const submitHandler = async (e) => {
     e.preventDefault();
     console.log(email, password);
+    console.log(email,password)
     dispatch(login(email, password));
   };
   return (
@@ -56,12 +58,17 @@ const LoginScreen = (location) => {
             }}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" onClick={submitHandler}>
           Sign In
         </Button>
         <Row className="py-3">
           <Col>
-            New Customer? <Link to={redirect?`/register?redirect=${redirect}`:'/register'}>Regiser</Link>
+            New Customer?{" "}
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : "/register"}
+            >
+              Regiser
+            </Link>
           </Col>
         </Row>
       </Form>
