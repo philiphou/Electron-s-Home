@@ -23,7 +23,7 @@ const preloadedState = {
   cart: {
     cartItems: cartItemsFromStorage,
   },
-  userLogin: { userInfo: userInfoFromStorage },
+  user: { userInfo: userInfoFromStorage },
 };
 const store = configureStore({ reducer, preloadedState });
 export default store;
