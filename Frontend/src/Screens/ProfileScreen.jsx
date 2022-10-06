@@ -26,7 +26,7 @@ const ProfileScreen = () => {
     if (!userInfo) {
       navigate("/login");
     }else{
-      if(user==={}){
+      if(!user||!user.name){
         dispatch(getUserDetails('profile'))
       }else{
         console.log('ccc')
