@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
-import { getUserDetails } from "../actions/userActions";
+import { getUserDetails, updateUserProfile } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Message from "../Components/Message";
 import Loader from "../Components/Loader";
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 
 const ProfileScreen = () => {
@@ -19,6 +20,8 @@ const ProfileScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   let { loading, error, user } = userDetails;
+  const updateProfie=useSelector(state=>state.userUpdateProfile)
+  const {success} = updateProfie
 
   const navigate = useNavigate();
 
@@ -26,7 +29,8 @@ const ProfileScreen = () => {
     if (!userInfo) {
       navigate("/login");
     }else{
-      if(!user||!user.name){
+      if(!user||!user.name || success){
+        dispatch({type:USER_UPDATE_PROFILE_RESET})
         dispatch(getUserDetails('profile'))
       }else{
         console.log('ccc')
@@ -35,11 +39,13 @@ const ProfileScreen = () => {
       }
     }
   
-  }, [userInfo, dispatch,user]);
+  }, [userInfo, dispatch,user,success]);
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage("Password does not match");
+    }else{
+      dispatch(updateUserProfile({name,email,password}))
     }
   };
   return (
