@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const navigate = useNavigate()
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
 
   const { userInfo } = user;

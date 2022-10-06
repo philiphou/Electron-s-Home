@@ -5,13 +5,14 @@ import {
   productDetailReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
-import { userLoginReducer, userRegisterReducer } from "./reducers/userReducers";
+import { userLoginReducer, userRegisterReducer,userDetailReducer } from "./reducers/userReducers";
 const reducer = combineReducers({
   productList: productListReducer,
   productDetail: productDetailReducer,
   cart: cartReducer,
-  user: userLoginReducer,
+  userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  userDetails:userDetailReducer
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
@@ -24,7 +25,7 @@ const preloadedState = {
   cart: {
     cartItems: cartItemsFromStorage,
   },
-  user: { userInfo: userInfoFromStorage },
+  userLogin: { userInfo: userInfoFromStorage },
   userRegister:{}
 };
 const store = configureStore({ reducer, preloadedState });
