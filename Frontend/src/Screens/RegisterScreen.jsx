@@ -28,6 +28,7 @@ const RegisterScreen = (location) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(register(name, email, password));
+
   };
   return (
     <FormContainer>

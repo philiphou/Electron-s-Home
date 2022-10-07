@@ -110,6 +110,9 @@ export default function CartScreen() {
                   type="button"
                   className="btn-block"
                   disabled={totalItems === 0}
+                  onClick={() => {
+                    navigate("/shipping");
+                  }}
                 >
                   Go to Checkout
                 </Button>
@@ -119,7 +122,8 @@ export default function CartScreen() {
                   type="button"
                   className="btn-block"
                   onClick={() => {
-                    navigate("/");
+
+                    navigate("/login?redirect=shipping");
                   }}
                 >
                   Continue Shopping
