@@ -4,15 +4,16 @@ import FormContainer from "../Components/FormContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Components/Loader";
+import CheckoutStep from "../Components/CheckoutStep";
 import { saveShippingAddress } from "../actions/cartActions";
 
 export default function ShippingScreen() {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
-  const [address, setAddress] = useState(shippingAddress.address?shippingAddress.address:"");
-  const [city, setCity] = useState(shippingAddress.city?shippingAddress.city:"");
-  const [postcode, setPostCode] = useState(shippingAddress.postcode?shippingAddress.postcode:"");
-  const [country, setCountry] = useState(shippingAddress.country?shippingAddress.country:"");
+  const [address, setAddress] = useState(shippingAddress?shippingAddress.address:"");
+  const [city, setCity] = useState(shippingAddress?shippingAddress.city:"");
+  const [postcode, setPostCode] = useState(shippingAddress?shippingAddress.postcode:"");
+  const [country, setCountry] = useState(shippingAddress?shippingAddress.country:"");
   const [message, setMessage] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ export default function ShippingScreen() {
 
   return (
     <FormContainer>
+      <CheckoutStep step1 step2/>
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="address">
@@ -75,6 +77,7 @@ export default function ShippingScreen() {
           Continue
         </Button>
       </Form>
+
     </FormContainer>
   );
 }
