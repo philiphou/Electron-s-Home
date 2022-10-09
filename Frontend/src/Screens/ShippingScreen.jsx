@@ -10,28 +10,36 @@ import { saveShippingAddress } from "../actions/cartActions";
 export default function ShippingScreen() {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
-  const [address, setAddress] = useState(shippingAddress?shippingAddress.address:"");
-  const [city, setCity] = useState(shippingAddress?shippingAddress.city:"");
-  const [postcode, setPostCode] = useState(shippingAddress?shippingAddress.postcode:"");
-  const [country, setCountry] = useState(shippingAddress?shippingAddress.country:"");
+  const [address, setAddress] = useState(
+    shippingAddress ? shippingAddress.address : ""
+  );
+  const [city, setCity] = useState(shippingAddress ? shippingAddress.city : "");
+  const [postcode, setPostCode] = useState(
+    shippingAddress ? shippingAddress.postcode : ""
+  );
+  const [country, setCountry] = useState(
+    shippingAddress ? shippingAddress.country : ""
+  );
   const [message, setMessage] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
+
     dispatch(saveShippingAddress({ address, city, postcode, country }));
-    localStorage.setItem('shippingAddress',{ address, city, postcode, country })
+
     navigate("/payment");
   };
 
   return (
     <FormContainer>
-      <CheckoutStep step1 step2/>
+      <CheckoutStep step1 step2 />
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="address">
           <Form.Label>Address</Form.Label>
           <Form.Control
+            required
             type="address"
             placeholder="Enter Address"
             value={address}
@@ -46,6 +54,7 @@ export default function ShippingScreen() {
             type="city"
             placeholder="Enter City"
             value={city}
+            required
             onChange={(e) => {
               setCity(e.target.value);
             }}
@@ -57,6 +66,7 @@ export default function ShippingScreen() {
             type="postcode"
             placeholder="Enter Post Code"
             value={postcode}
+            required
             onChange={(e) => {
               setPostCode(e.target.value);
             }}
@@ -68,6 +78,7 @@ export default function ShippingScreen() {
             type="country"
             placeholder="Enter Country"
             value={country}
+            required
             onChange={(e) => {
               setCountry(e.target.value);
             }}
@@ -77,7 +88,6 @@ export default function ShippingScreen() {
           Continue
         </Button>
       </Form>
-
     </FormContainer>
   );
 }
