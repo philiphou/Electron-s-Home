@@ -25,10 +25,14 @@ export default function ShippingScreen() {
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
+    if(address!==""&&city!==""&&postcode!==""&&country!==""){
+      dispatch(saveShippingAddress({ address, city, postcode, country }));
 
-    dispatch(saveShippingAddress({ address, city, postcode, country }));
-
-    navigate("/payment");
+      navigate("/payment");
+    }else{
+      alert('Please input invalid information')
+    }
+  
   };
 
   return (
