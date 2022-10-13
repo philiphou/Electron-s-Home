@@ -8,7 +8,6 @@ import Message from "../Components/Message";
 import Loader from "../Components/Loader";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
-
 const ProfileScreen = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -20,32 +19,31 @@ const ProfileScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   let { loading, error, user } = userDetails;
-  const updateProfie=useSelector(state=>state.userUpdateProfile)
-  const {success} = updateProfie
+  const updateProfie = useSelector((state) => state.userUpdateProfile);
+  const { success } = updateProfie;
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
-    }else{
-      if(!user||!user.name || success){
-        dispatch({type:USER_UPDATE_PROFILE_RESET})
-        dispatch(getUserDetails('profile'))
-      }else{
-        console.log('ccc')
-          setName(user.name)
-          setEmail(user.email)
+    } else {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
+        dispatch(getUserDetails("profile"));
+      } else {
+        console.log("ccc");
+        setName(user.name);
+        setEmail(user.email);
       }
     }
-  
-  }, [userInfo, dispatch,user,success]);
+  }, [userInfo, dispatch, user, success]);
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage("Password does not match");
-    }else{
-      dispatch(updateUserProfile({name,email,password}))
+    } else {
+      dispatch(updateUserProfile({ name, email, password }));
     }
   };
   return (
@@ -65,6 +63,7 @@ const ProfileScreen = () => {
                 type="name"
                 placeholder="Enter your user name"
                 value={name}
+                required
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
@@ -76,6 +75,7 @@ const ProfileScreen = () => {
                 type="email"
                 placeholder="Enter your email"
                 value={email}
+                required
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -87,6 +87,7 @@ const ProfileScreen = () => {
                 type="password"
                 placeholder="Enter your password"
                 value={password}
+                required
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
@@ -98,6 +99,7 @@ const ProfileScreen = () => {
                 type="confirmPassword"
                 placeholder="Confirm Password"
                 value={confirmPassword}
+                required
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
                 }}

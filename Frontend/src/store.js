@@ -25,10 +25,14 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
   const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
   ? JSON.parse(localStorage.getItem("shippingAddress"))
   : null;
+
+  const paymentMethodFromStorage=localStorage.getItem("paymentMethod")?JSON.parse(localStorage.getItem('paymentMethod'))
+  : null;
 const preloadedState = {
   cart: {
     cartItems: cartItemsFromStorage,
-    shippingAddress:shippingAddressFromStorage
+    shippingAddress:shippingAddressFromStorage,
+    paymentMethod:paymentMethodFromStorage
   },
   userLogin: { userInfo: userInfoFromStorage },
   userRegister:{}

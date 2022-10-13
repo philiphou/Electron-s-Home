@@ -3,24 +3,23 @@ import { Form, Button } from "react-bootstrap";
 import FormContainer from "../Components/FormContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { savePaymentMethod } from "../actions/cartActions";
 import CheckoutStep from "../Components/CheckoutStep";
-import { saveShippingAddress } from "../actions/cartActions";
-
 export default function PaymentScreen() {
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
-  console.log(shippingAddress)
+  const { shippingAddress,paymentMethod:payment } = cart;
+
   const navigate = useNavigate();
   if (Object.keys(shippingAddress).length===0) {
     navigate("/shipping");
   }
-  const [payment, SetPayment] = useState("PayPal");
+  const [paymentMethod, SetPaymentMethod] = useState(payment);
 
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(savePaymentMethod(paymentMethod))
     navigate("/placeorder");
   };
 
@@ -37,9 +36,9 @@ export default function PaymentScreen() {
             id="paypal"
             name="paymentMethod"
             value="PayPal"
-            checked
+            checked={paymentMethod==='Paypal'}
             onChange={(e) => {
-              SetPayment(e.target.value);
+              SetPaymentMethod(e.target.value);
             }}
           ></Form.Check>
           <Form.Check
@@ -48,8 +47,9 @@ export default function PaymentScreen() {
             id="Stripe"
             name="paymentMethod"
             value="Stripe"
+            checked={paymentMethod==='Stripe'}
             onChange={(e) => {
-              SetPayment(e.target.value);
+              SetPaymentMethod(e.target.value);
             }}
           ></Form.Check>
         </Form.Group>
