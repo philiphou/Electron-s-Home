@@ -36,7 +36,7 @@ export default function PaymentScreen() {
             id="paypal"
             name="paymentMethod"
             value="PayPal"
-            checked={paymentMethod==='Paypal'}
+            checked={paymentMethod==='PayPal'}
             onChange={(e) => {
               SetPaymentMethod(e.target.value);
             }}
