@@ -10,77 +10,58 @@ import {
 } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
+import Loader from "../Components/Loader";
 
-import CheckoutStep from "../Components/CheckoutStep";
 
 import Message from "../Components/Message";
-import { createOrder } from "../actions/orderActions";
-import { ORDER_CREATE_RESET } from "../constants/orderConstants";
+import { getOrderDetails } from "../actions/orderActions";
 
-const PlaceOrder = () => {
-  let cart = useSelector((state) => state.cart);
-  // get total price before tax and shipping
-  cart.itemsPrice = cart.cartItems.reduce(
-    (acc, cur) => acc + cur.price * cur.qty,
-    0
-  );
-  //  get shipping costs
-  cart.shippingPrice = cart.itemsPrice > 50 ? 0 : 15;
-  //  get tax expenses
-  cart.taxPrice = cart.itemsPrice * 0.1;
-  //  get total price
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-  const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, success, error } = orderCreate;
-  const Navigate = useNavigate();
-  useEffect(() => {
-    if (success) {
-      Navigate(`/order/${order._id}`);
-    }
-  }, [success]);
+const OrderScreen = () => {
   const dispatch = useDispatch();
-  const placeOrderHandler = (e) => {
-    dispatch(
-      createOrder({
-        orderItems: cart.cartItems,
-        shippingPrice: cart.shippingPrice,
-        paymentMethod: cart.paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
-        shippingAddress: cart.shippingAddress,
-      })
-    );
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { order, loading, error } = orderDetails;
+  console.log(order)
+  const a = useParams();
+  console.log(a);
+  useEffect(() => {
+    dispatch(getOrderDetails(a.id));
+  }, []);
 
-  };
-  return (
+  return loading ? (
+    <Loader />
+  ) : error ? (
+    <Message variant="danger">{error}</Message>
+  ) : (
     <>
-      <CheckoutStep step1 step2 step3 step4></CheckoutStep>
+      <h1>Order ID :{order._id}</h1>
       <Row>
         <Col md={8}>
           <ListGroup>
             <ListGroupItem variant="flush">
-              <h2>Shipping</h2>
+              <h2><strong>Shipping Information</strong></h2>
+              <p><strong>Name:{order.user.name}</strong></p>
+              <p><strong>Email:</strong> <a href={`mail to:${order.user.email}`}>{order.user.email}</a></p>
               <p>
-                <strong>Address:</strong> {cart.shippingAddress.address},{" "}
-                {cart.shippingAddress.city}, {cart.shippingAddress.postcode},{" "}
-                {cart.shippingAddress.country}
+
+                <strong>Address:</strong> {order.shippingAddress.address},{" "}
+                {order.shippingAddress.city}, {order.shippingAddress.postcode},{" "}
+                {order.shippingAddress.country}
               </p>
             </ListGroupItem>
             <ListGroupItem variant="flush">
               <h2> Payment Method</h2>
               <strong>Method:</strong>
-              {cart.paymentMethod}
+              {order.paymentMethod}
+              {order.isPaid?(<Message variant='success'>Paid on {order.paidAt}</Message>):(<Message variant='danger'>Not Paid Yet</Message>)}
             </ListGroupItem>
             <ListGroupItem>
               <h2>Order Items</h2>
-              {cart.cartItems.length === 0 ? (
+              {order.orderItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
                 <ListGroup variant="flush">
-                  {cart.cartItems.map((x, id) => {
+                  {order.orderItems.map((x, id) => {
                     return (
                       <ListGroupItem key={id}>
                         <Row>
@@ -91,7 +72,7 @@ const PlaceOrder = () => {
                             <Link to={`/product/${x.product}`}>{x.name}</Link>
                           </Col>
                           <Col md={4}>
-                            {x.qty}x${x.price}=${x.qty * x.price}
+                            {x.qty}x${x.price}=${x.qty * x.price.toFixed(2)}
                           </Col>
                         </Row>
                       </ListGroupItem>
@@ -111,25 +92,25 @@ const PlaceOrder = () => {
               <ListGroupItem>
                 <Row>
                   <Col>Items</Col>
-                  <Col>${cart.itemsPrice.toFixed(2)}</Col>
+                  <Col>${order.itemsPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroupItem>
               <ListGroupItem>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>${cart.shippingPrice.toFixed(2)}</Col>
+                  <Col>${order.shippingPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroupItem>
               <ListGroupItem>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>${cart.taxPrice.toFixed(2)}</Col>
+                  <Col>${order.taxPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroupItem>
               <ListGroupItem>
                 <Row>
                   <Col>Total</Col>
-                  <Col>${cart.totalPrice.toFixed(2)}</Col>
+                  <Col>${order.totalPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroupItem>
               <ListGroupItem>
@@ -139,8 +120,8 @@ const PlaceOrder = () => {
                 <Button
                   type="button"
                   className="btn w-100"
-                  disabled={cart.cartItems.length === 0}
-                  onClick={placeOrderHandler}
+                  disabled={order.orderItems.length === 0}
+                 
                 >
                   PLACE ORDER
                 </Button>
@@ -153,4 +134,4 @@ const PlaceOrder = () => {
   );
 };
 
-export default PlaceOrder;
+export default OrderScreen;

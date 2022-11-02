@@ -1,11 +1,12 @@
 import { combineReducers } from "redux";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
   productListReducer,
   productDetailReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import { userLoginReducer, userRegisterReducer,userDetailReducer,updateProfileReducer } from "./reducers/userReducers";
+import{orderCreateReducer,orderDetailsReducer} from './reducers/orderReducers.js'
 const reducer = combineReducers({
   productList: productListReducer,
   productDetail: productDetailReducer,
@@ -13,7 +14,10 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails:userDetailReducer,
-  userUpdateProfile:updateProfileReducer
+  userUpdateProfile:updateProfileReducer,
+  orderCreate:orderCreateReducer,
+  orderDetails:orderDetailsReducer
+
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
@@ -37,5 +41,8 @@ const preloadedState = {
   userLogin: { userInfo: userInfoFromStorage },
   userRegister:{}
 };
-const store = configureStore({ reducer, preloadedState });
+const store = configureStore({ reducer, preloadedState, middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+  immutableCheck: false,
+  serializableCheck: false,
+}) });
 export default store;
