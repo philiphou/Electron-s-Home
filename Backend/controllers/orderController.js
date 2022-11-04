@@ -2,7 +2,7 @@ import Order from "../models/orderModel.js";
 import asyncHandler from "express-async-handler";
 //  create new order
 //  access: private
-//  route GET /api/order
+//  route GET /order
 export const addOrderItems = asyncHandler(async (req, res) => {
   const {
     orderItems,
@@ -35,7 +35,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 
 //  GET order details by ID
 //  access: private
-//  route GET /api/order/:id
+//  route GET /order/:id
 export const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate('user','name email') // fill users name and email value
   if(order){
@@ -44,4 +44,37 @@ export const getOrderById = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('Order is not found')
   }
+});
+
+
+//  update order  by payment on specific ID
+//  access: private
+//  route put /orders/:id/pay
+export const updateOrderToPaid = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id)
+  if(order){
+    order.isPaid=true;
+    order.paidAt = Date.now()
+    order.paymentResult={
+      id:req.body.id,
+      status:req.body.status,
+      update_time:req.body.update_time,
+      email_address:req.body.email_address
+    }
+    const updatedOrder = await order.save()
+    res.json(updatedOrder)
+  }else{
+    res.status(404)
+    throw new Error('Order is not found')
+  }
+});
+
+
+//  get order list of the user
+//  access: private
+//  route get /orders/myorders
+export const getMyOrder= asyncHandler(async (req, res) => {
+  console.log(req)
+  const orders = await Order.find({user:req.user._id})
+  res.json(orders)
 });
