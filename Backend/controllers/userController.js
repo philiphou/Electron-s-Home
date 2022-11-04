@@ -83,4 +83,12 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("invalid user information");
   }
 });
-export { authUser, getUserProfile, registerUser, updateUserProfile };
+
+
+
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.json(users)
+
+});
+export { authUser, getUserProfile, registerUser, updateUserProfile,getUsers };

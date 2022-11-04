@@ -48,6 +48,16 @@ export default function Header() {
                 </Nav.Link>
               </LinkContainer>
             )}
+            {userInfo&&userInfo.isAdmin&&(
+               <NavDropdown title='Admin' id="adminmenu">
+               <LinkContainer to="/userlist">
+                 <NavDropdown.Item>User List</NavDropdown.Item>
+               </LinkContainer>
+               <NavDropdown.Item onClick={logoutHandler}>
+                 log out
+               </NavDropdown.Item>
+             </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

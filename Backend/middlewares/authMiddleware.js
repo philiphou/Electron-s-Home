@@ -27,4 +27,14 @@ const protect = expressAsyncHandler(async (req, res, next) => {
   next();
 });
 
-export { protect };
+
+const admin=(req,res,next)=>{
+  if(req.user&&req.user.isAdmin){
+    next()
+  }else{
+    res.status(401)
+    throw new Error('you are not the admin')
+  }
+}
+
+export { protect,admin };
