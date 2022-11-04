@@ -5,10 +5,9 @@ import { Table, Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
-import { listUsers } from "../actions/userActions";
+import { deleteUser, listUsers } from "../actions/userActions";
 import Loader from "../Components/Loader";
 import Message from "../Components/Message";
-
 
 const UserListScreen = () => {
   const navigate = useNavigate();
@@ -17,14 +16,21 @@ const UserListScreen = () => {
   const { loading, error, users } = userList;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
+  const userDelete = useSelector((state) => state.userDelete);
+  const {success:successDelete}=userDelete
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers());
     } else {
       navigate("/login");
     }
-  }, [dispatch, userInfo]);
+  }, [dispatch, userInfo,successDelete]);
+
+  const deleteUserHandler = (id) => {
+    if (window.confirm("do you confirm to delete this user?")) {
+      dispatch(deleteUser(id));
+    }
+  };
   return (
     <>
       <h1> User List</h1>
@@ -41,6 +47,7 @@ const UserListScreen = () => {
               <th>Email</th>
               <th>Admin?</th>
               <th>Edit?</th>
+              <th>Delete?</th>
             </tr>
           </thead>
           <tbody>
@@ -61,11 +68,22 @@ const UserListScreen = () => {
                 </td>
 
                 <td>
+                
                   <LinkContainer to={`admin/user/${e._id}/edit`}>
                     <Button className="btn-sm w-100" variant="light">
                       <i className="fas fa-edit"></i>
                     </Button>
                   </LinkContainer>
+                 
+                </td>
+                <td>
+                <Button
+                    variant="danger"
+                    className="btn-sm"
+                    onClick={() => deleteUserHandler(e._id)}
+                  >
+                    <i className="fas fa-trash"></i>
+                  </Button>
                 </td>
               </tr>
             ))}

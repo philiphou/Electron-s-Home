@@ -5,17 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/userActions.js";
 import { useNavigate } from "react-router-dom";
 
-
 export default function Header() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const user = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
 
   const { userInfo } = user;
   const logoutHandler = () => {
     dispatch(logout());
-    navigate('/login')
-
+    navigate("/login");
   };
   return (
     <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
@@ -48,15 +46,12 @@ export default function Header() {
                 </Nav.Link>
               </LinkContainer>
             )}
-            {userInfo&&userInfo.isAdmin&&(
-               <NavDropdown title='Admin' id="adminmenu">
-               <LinkContainer to="/userlist">
-                 <NavDropdown.Item>User List</NavDropdown.Item>
-               </LinkContainer>
-               <NavDropdown.Item onClick={logoutHandler}>
-                 log out
-               </NavDropdown.Item>
-             </NavDropdown>
+            {userInfo && userInfo.isAdmin && (
+              <NavDropdown title="Admin" id="adminmenu">
+                <LinkContainer to="/userlist">
+                  <NavDropdown.Item>User List</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
             )}
           </Nav>
         </Navbar.Collapse>
