@@ -5,7 +5,7 @@ import {
   productDetailReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
-import { userLoginReducer, userRegisterReducer,userDetailReducer,updateProfileReducer,userListReducer, userDeleteReducer } from "./reducers/userReducers";
+import { userLoginReducer, userRegisterReducer,userDetailReducer,updateProfileReducer,userListReducer, userDeleteReducer, userUpdateReducer } from "./reducers/userReducers";
 import{orderCreateReducer,orderDetailsReducer, orderListMyReducer, orderPayReducer} from './reducers/orderReducers.js'
 const reducer = combineReducers({
   productList: productListReducer,
@@ -20,7 +20,9 @@ const reducer = combineReducers({
   orderPay:orderPayReducer,
   orderListMy:orderListMyReducer,
   userList:userListReducer,
-  userDelete:userDeleteReducer
+  userDelete:userDeleteReducer,
+  userUpdate:userUpdateReducer
+
 
 
 });

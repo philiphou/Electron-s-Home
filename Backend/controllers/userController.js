@@ -116,13 +116,15 @@ const getUserById = asyncHandler(async (req, res) => {
   }
 });
 
-// update user by Id through admin login
+// update user by Id through admin loginn
 // PUT api/users/:id
 // access: private (admin login)
 
 const updateUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
-  console.log(req.body);
+  console.log(req.params.id)
+  const user = await User.findById(req.params.id);
+  console.log(user)
+
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;

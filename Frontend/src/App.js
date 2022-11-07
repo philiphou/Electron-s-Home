@@ -32,7 +32,7 @@ function App() {
             <Route path="/register" element={<RegisterScreen />} />
             <Route path="/profile" element={<ProfileScreen />} />
             <Route path="/userList" element={<UserListScreen />} />
-            <Route path="/user/edit/:id" element={<UserEditScreen />} />
+            <Route path="/user/:id/edit" element={<UserEditScreen />} />
             <Route path="/shipping" element={<ShippingScreen />} />
             <Route path="/payment" element={<PaymentScreen />} />
             <Route path="/placeorder" element={<PlaceOrderScreen />} />
