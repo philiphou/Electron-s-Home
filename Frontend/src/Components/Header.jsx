@@ -38,6 +38,13 @@ export default function Header() {
                 <NavDropdown.Item onClick={logoutHandler}>
                   log out
                 </NavDropdown.Item>
+                {userInfo && userInfo.isAdmin && (
+                  
+                    <LinkContainer to="/userlist" className="ms-0">
+                      <NavDropdown.Item>users</NavDropdown.Item>
+                    </LinkContainer>
+              
+                )}
               </NavDropdown>
             ) : (
               <LinkContainer to="/login">
@@ -45,13 +52,6 @@ export default function Header() {
                   <i className="fas fa-user"></i>&nbsp;Login
                 </Nav.Link>
               </LinkContainer>
-            )}
-            {userInfo && userInfo.isAdmin && (
-              <NavDropdown title="Admin" id="adminmenu">
-                <LinkContainer to="/userlist">
-                  <NavDropdown.Item>User List</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
             )}
           </Nav>
         </Navbar.Collapse>

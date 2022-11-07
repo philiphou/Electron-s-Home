@@ -51,7 +51,7 @@ const OrderScreen = () => {
       };
   
       //  if there is no order, we need get order details first
-      if (!order|| successPay) {
+      if (!order|| successPay ||order._id!==orderId ) {
         dispatch({type:ORDER_PAY_RESET})
         dispatch(getOrderDetails(orderId));
         //  if order exists and not paid,
