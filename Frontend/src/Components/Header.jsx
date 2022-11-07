@@ -39,11 +39,17 @@ export default function Header() {
                   log out
                 </NavDropdown.Item>
                 {userInfo && userInfo.isAdmin && (
-                  
+                  <>
                     <LinkContainer to="/userlist" className="ms-0">
-                      <NavDropdown.Item>users</NavDropdown.Item>
+                      <NavDropdown.Item>All Users</NavDropdown.Item>
                     </LinkContainer>
-              
+                    <LinkContainer to="/productlist" className="ms-0">
+                      <NavDropdown.Item>All Products</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/orderlist" className="ms-0">
+                      <NavDropdown.Item>All Orders</NavDropdown.Item>
+                    </LinkContainer>
+                  </>
                 )}
               </NavDropdown>
             ) : (
