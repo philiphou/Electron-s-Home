@@ -9,6 +9,7 @@ import Message from "../Components/Message";
 import Loader from "../Components/Loader";
 import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
 import { listProductDetail, updateProduct } from "../actions/productActions";
+import axios from "axios";
 
 const ProductEditScreen = () => {
   const params = useParams();
@@ -19,6 +20,7 @@ const ProductEditScreen = () => {
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
   const [countInStock, setCountInStock] = useState(5);
+  const { uploading, setUploading } = useState(false);
 
   const dispatch = useDispatch();
 
@@ -66,6 +68,23 @@ const ProductEditScreen = () => {
         category,
       })
     );
+  };
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const { data } = await axios.post("/api/uploads", formData, config);
+      setImage(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -122,6 +141,9 @@ const ProductEditScreen = () => {
                   setImage(e.target.value);
                 }}
               ></Form.Control>
+              <Form.Group controlId="image" className="mb-3">
+                <Form.Control type="file" label='choose file' custom onChange={uploadFileHandler} />
+              </Form.Group>
             </Form.Group>
 
             <Form.Group controlId="countInStock">

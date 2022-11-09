@@ -1,14 +1,13 @@
 import express from "express";
-import { Router } from "express/lib/express";
 import multer from "multer";
 import path from "path";
 const router = express.Router();
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/uploads");
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, `$(file.filename)-${Date.now()}$(path.extname(file.orginalname))`);
+    cb(null, `$(file.fieldname)-${Date.now()}$(path.extname(file.orginalname))`);
   },
 });
 function checkFileType(file, cb) {
