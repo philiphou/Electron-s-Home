@@ -90,7 +90,8 @@ const UserEditScreen = () => {
                 checked={isAdmin}
                 required
                 onChange={(e) => {
-                  setisAdmin(e.target.value);
+                  console.log(e.target.checked)
+                  setisAdmin(e.target.checked);
                 }}
               ></Form.Check>
             </Form.Group>

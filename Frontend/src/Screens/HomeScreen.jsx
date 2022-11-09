@@ -18,7 +18,7 @@ export default function HomeScreen() {
   //console.log('products:'+productList);
   const { loading, error, products } = productList;
   useEffect(() => {
-    dispatch(listProducts);
+    dispatch(listProducts());
   }, [dispatch]); // when array is empty, useEffect will be executed only first time when component rendered
   return (
     <>
