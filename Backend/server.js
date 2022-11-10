@@ -21,10 +21,10 @@ app.use("/api/products", productRoutes);
 
 app.use("/users", userRoutes);
 app.use("/orders", orderRoutes);
-app.use('api/uploads',uploadRoutes)
+app.use('/api/uploads',uploadRoutes)
 const __dirname = path.resolve()
-console.log(__dirname)
-app.use('api/uploads',express.static(path.join(__dirname,'/uploads')))
+
+app.use('/api/uploads',express.static(path.join(__dirname,'/uploads')))
 
 app.get('/paypal',(req,res)=>{
   res.send(process.env.PAYPAL_CLIENT_ID)

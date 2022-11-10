@@ -73,7 +73,7 @@ const ProductEditScreen = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
-
+ 
     try {
       const config = {
         headers: {
@@ -82,8 +82,10 @@ const ProductEditScreen = () => {
       };
       const { data } = await axios.post("/api/uploads", formData, config);
       setImage(data);
+
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    
     }
   };
   return (
@@ -141,11 +143,15 @@ const ProductEditScreen = () => {
                   setImage(e.target.value);
                 }}
               ></Form.Control>
-              <Form.Group controlId="image" className="mb-3">
-                <Form.Control type="file" label='choose file' custom onChange={uploadFileHandler} />
-              </Form.Group>
             </Form.Group>
-
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Control
+                type="file"
+                label="choose file"
+                onChange={uploadFileHandler}
+              />
+            </Form.Group>
+            {uploading && <Loader />}
             <Form.Group controlId="countInStock">
               <Form.Label>Count In Stock</Form.Label>
               <Form.Control
