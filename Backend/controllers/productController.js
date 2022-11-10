@@ -65,7 +65,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
     product.countInStock = countInStock;
     const updatedProduct = await product.save();
     res.status(201).json(updatedProduct);
-    console.log('更新产品'+updatedProduct)
+  
   } else {
     res.status(404);
     throw new Error("product is not found");

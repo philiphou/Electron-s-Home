@@ -46,7 +46,7 @@ export default function Header() {
                     <LinkContainer to="/productlist" className="ms-0">
                       <NavDropdown.Item>All Products</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/orderlist" className="ms-0">
+                    <LinkContainer to="/admin/orderlist" className="ms-0">
                       <NavDropdown.Item>All Orders</NavDropdown.Item>
                     </LinkContainer>
                   </>
