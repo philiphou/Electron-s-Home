@@ -20,7 +20,7 @@ const ProductEditScreen = () => {
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
   const [countInStock, setCountInStock] = useState(5);
-  const { uploading, setUploading } = useState(false);
+  const { uploadingImage, setUploadingImage } = useState(false);
 
   const dispatch = useDispatch();
 
@@ -40,6 +40,7 @@ const ProductEditScreen = () => {
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
       navigate("/productlist");
+    
     } else {
       // if there is no product
       if (!product.name || product._id !== productId) {
@@ -68,12 +69,13 @@ const ProductEditScreen = () => {
         category,
       })
     );
+    ;
   };
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
- 
+
     try {
       const config = {
         headers: {
@@ -81,11 +83,10 @@ const ProductEditScreen = () => {
         },
       };
       const { data } = await axios.post("/api/uploads", formData, config);
+      console.log(data);
       setImage(data);
-
     } catch (error) {
       console.error(error);
-    
     }
   };
   return (
@@ -150,8 +151,9 @@ const ProductEditScreen = () => {
                 label="choose file"
                 onChange={uploadFileHandler}
               />
+              {uploadingImage && <Loader />}
             </Form.Group>
-            {uploading && <Loader />}
+
             <Form.Group controlId="countInStock">
               <Form.Label>Count In Stock</Form.Label>
               <Form.Control

@@ -44,8 +44,11 @@ const ProductListScreen = () => {
   useEffect(() => {
     if (!userInfo && !userInfo.isAdmin) {
       navigate("/login");
-    } 
-    if(successDelete) listProducts();
+    }else{
+      dispatch(listProducts())
+    }
+
+  
   }, [dispatch, userInfo, successDelete, successCreate, newProduct]);
 
   const deleteProductHandler = (id) => {

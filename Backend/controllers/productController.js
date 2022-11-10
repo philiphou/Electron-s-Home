@@ -37,7 +37,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     name: "sample name",
     price: 11,
     user: req.user._id,
-    brand:'sample brand',
+    brand: "sample brand",
     image: "/Images/HeadPhone/HeadPhone-1.jpg",
     category: "Sample category",
     countInStock: 20,
@@ -59,12 +59,13 @@ export const updateProduct = asyncHandler(async (req, res) => {
     product.name = name;
     product.price = price;
     product.description = description;
-    product.iamge = image;
+    product.image = image;
     product.brand = brand;
     product.category = category;
     product.countInStock = countInStock;
     const updatedProduct = await product.save();
     res.status(201).json(updatedProduct);
+    console.log('更新产品'+updatedProduct)
   } else {
     res.status(404);
     throw new Error("product is not found");

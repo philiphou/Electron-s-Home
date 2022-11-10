@@ -1,11 +1,11 @@
 import express from "express";
 const app = express();
-import path from 'path'
+import path from "path";
 import dotenv from "dotenv";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import orderRoutes from './routes/orderRoutes.js'
-import uploadRoutes from './routes/uploadRoutes.js'
+import orderRoutes from "./routes/orderRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 import connectDB from "./config/db.js";
 
@@ -16,19 +16,20 @@ dotenv.config();
 connectDB();
 // middleware to parse json data
 app.use(express.json());
+const __dirname = path.resolve();
+app.use(express.static(__dirname));
 
 app.use("/api/products", productRoutes);
 
 app.use("/users", userRoutes);
 app.use("/orders", orderRoutes);
-app.use('/api/uploads',uploadRoutes)
-const __dirname = path.resolve()
+app.use("/api/uploads", uploadRoutes);
 
-app.use('/api/uploads',express.static(path.join(__dirname,'/uploads')))
+app.use("/api/uploads", express.static(path.join(__dirname, "/uploads")));
 
-app.get('/paypal',(req,res)=>{
-  res.send(process.env.PAYPAL_CLIENT_ID)
-})
+app.get("/paypal", (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID);
+});
 //
 
 app.use(notFound);

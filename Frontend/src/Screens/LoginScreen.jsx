@@ -25,8 +25,7 @@ const LoginScreen = (location) => {
   }, [userInfo, redirect]);
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(email, password);
-    console.log(email,password)
+
     dispatch(login(email, password));
   };
   return (
