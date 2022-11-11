@@ -26,7 +26,6 @@ const OrderListScreen = () => {
     }
   }, [dispatch, userInfo]);
 
-
   return (
     <>
       <h1> Order List</h1>
@@ -39,35 +38,31 @@ const OrderListScreen = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>USER</th>
-              <th>Address</th>
+              <th>User</th>
+              <th>Date</th>
               <th>Total Price</th>
               <th>Paid</th>
               <th>Delevered</th>
-             
+              <th>Details</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((e) => (
               <tr key={e._id}>
                 <td>{e._id}</td>
-                <td>{e.user&&e.user.name}</td>
-                <td>
-                 {e.shippingAddress.city}
-                </td>
-                <td>
-                 {e.totalPrice}
-                </td>
+                <td>{e.user && e.user.name}</td>
+                <td>{e.createdAt.substring(0, 10)}</td>
+                <td>{e.totalPrice}</td>
                 <td>
                   {e.isPaid ? (
-                    e.paidAt.subString(0,10)
+                    e.paidAt.subString(0, 10)
                   ) : (
                     <i className="fas fa-times" style={{ color: "red" }}></i>
                   )}
                 </td>
                 <td>
                   {e.isDelivered ? (
-                    e.deliveredAt.subString(0,10)
+                    e.deliveredDate.substring(0, 10)
                   ) : (
                     <i className="fas fa-times" style={{ color: "red" }}></i>
                   )}
@@ -76,12 +71,9 @@ const OrderListScreen = () => {
                 <td>
                   <LinkContainer to={`/order/${e._id}`}>
                     <Button className="btn-sm w-100" variant="light">
-                     Details
+                      Details
                     </Button>
                   </LinkContainer>
-                </td>
-                <td>
-                  
                 </td>
               </tr>
             ))}

@@ -14,30 +14,38 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import Loader from "../Components/Loader";
 
 import Message from "../Components/Message";
-import { getOrderDetails, payOrder } from "../actions/orderActions";
+import {
+  getOrderDetails,
+  payOrder,
+  deliverOrder,
+} from "../actions/orderActions";
 import axios from "axios";
-import { ORDER_PAY_RESET } from "../constants/orderConstants";
+import {
+  ORDER_DELIVER_RESET,
+  ORDER_PAY_RESET,
+} from "../constants/orderConstants";
 
 const OrderScreen = () => {
   const [sdkReady, setsdkReady] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const userLogin = useSelector(state=>state.userLogin)
-  const {userInfo}=userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
-  const orderPay = useSelector(state=>state.orderPay)
-  const {loading:loadingPay,success:successPay}=orderPay
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
   console.log(order);
   const a = useParams();
   const orderId = a.id;
 
   useEffect(() => {
-    if(!userInfo){
-      navigate('/login')
-
-    }else {
+    if (!userInfo) {
+      navigate("/login");
+    } else {
       const addPayPalScript = async () => {
         const { data: ClientID } = await axios.get("/paypal");
         const script = document.createElement("script");
@@ -49,10 +57,11 @@ const OrderScreen = () => {
         };
         document.body.appendChild(script);
       };
-  
+
       //  if there is no order, we need get order details first
-      if (!order|| successPay ||order._id!==orderId ) {
-        dispatch({type:ORDER_PAY_RESET})
+      if (!order || successPay || successDeliver || order._id !== orderId) {
+        dispatch({ type: ORDER_PAY_RESET });
+        dispatch({ type: ORDER_DELIVER_RESET });
         dispatch(getOrderDetails(orderId));
         //  if order exists and not paid,
       } else if (!order.isPaid) {
@@ -65,22 +74,16 @@ const OrderScreen = () => {
         }
       }
     }
-
-    
-  }, [dispatch, orderId, order, sdkReady,successPay]);
-
+  }, [dispatch, orderId, order, sdkReady, successPay, successDeliver]);
 
   //  callback handlers
 
-  const successPaymentHandler = (paymentResult)=>{
-      console.log(paymentResult)
-      dispatch(payOrder(orderId,paymentResult))
-
-  }
-
-
-
-
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(payOrder(orderId, paymentResult));
+  };
+  const deliverOrderHandler = () => {
+    dispatch(deliverOrder(orderId));
+  };
 
   return loading ? (
     <Loader />
@@ -110,7 +113,7 @@ const OrderScreen = () => {
               </p>
               {order.isDelivered ? (
                 <Message variant="success">
-                  Delivered on {order.deliveredAt}
+                  Delivered on {order.deliveredDate.substring(0,10)}
                 </Message>
               ) : (
                 <Message variant="danger">Not Delivered Yet</Message>
@@ -140,7 +143,7 @@ const OrderScreen = () => {
                             <Image src={x.image} alt={x.name} fluid rounded />
                           </Col>
                           <Col>
-                            <Link to={`/product/${x.product}`}>{x.name}</Link>
+                            <Link to={`/products/${x.product}`}>{x.name}</Link>
                           </Col>
                           <Col md={4}>
                             {x.qty}x${x.price}=${x.qty * x.price.toFixed(2)}
@@ -193,14 +196,28 @@ const OrderScreen = () => {
 
               {!order.isPaid && (
                 <ListGroupItem>
-                  {loadingPay&&<Loader></Loader>}
+                  {loadingPay && <Loader></Loader>}
                   {!sdkReady ? (
                     <Loader />
                   ) : (
-                    <PayPalButton amount={order.totalPrice.toFixed(2)} 
-                    onSuccess={successPaymentHandler}
+                    <PayPalButton
+                      amount={order.totalPrice.toFixed(2)}
+                      onSuccess={successPaymentHandler}
                     />
                   )}
+                </ListGroupItem>
+              )}
+
+              {loadingDeliver && <Loader />}
+              {userInfo && userInfo.isAdmin && !order.isDelivered && (
+                <ListGroupItem>
+                  <Button
+                    type="button"
+                    className="btn btn-block"
+                    onClick={deliverOrderHandler}
+                  >
+                    Deliver the Order
+                  </Button>
                 </ListGroupItem>
               )}
             </ListGroup>

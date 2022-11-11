@@ -1,4 +1,5 @@
 import express from "express";
+import morgan from 'morgan'
 const app = express();
 import path from "path";
 import dotenv from "dotenv";
@@ -16,6 +17,10 @@ dotenv.config();
 connectDB();
 // middleware to parse json data
 app.use(express.json());
+if(process.env.NODE_ENV==='development'){
+
+  app.use(morgan('dev'))
+}
 const __dirname = path.resolve();
 app.use(express.static(__dirname));
 
