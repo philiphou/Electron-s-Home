@@ -22,3 +22,21 @@ h3{
   margin:0,auto;
 
 }
+
+/*  Carousel */
+
+#cbgc{
+  background-color: rgba(0, 89, 255, 0.404);
+}
+.carousel-caption h2{
+  color:#fff;
+}
+.carousel img{
+  height:350px;
+  margin-top:30px;
+  margin-bottom: 100px;
+  border-radius: 70%;
+  margin-left:40%;}
+.carousel a{
+  margin:0 auto;
+}

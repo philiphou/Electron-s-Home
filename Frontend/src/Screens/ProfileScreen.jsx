@@ -151,7 +151,7 @@ const ProfileScreen = () => {
                   </td>
                   <td>
                     {e.isDelivered ? (
-                      e.deliveredAt.substring(0, 10)
+                      e.deliveredDate.substring(0, 10)
                     ) : (
                       <i className="fas fa-times" style={{ color: "red" }}></i>
                     )}
