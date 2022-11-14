@@ -14,6 +14,9 @@ import {
   Card,
   Button,
   Form,
+  FormGroup,
+  FormLabel,
+  FormControl,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -45,9 +48,23 @@ export default function ProductScreen(history) {
   const [comments, setComments] = useState("");
 
   const a = useParams();
+  const user = useSelector((state) => state.userLogin);
 
+  const { userInfo } = user;
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(createProductReview(a.id, { ratingNumber, comments }));
+  };
   useEffect(() => {
-    dispatch(listProductDetail(a.id));
+    if (successCreateProductReview) {
+      setRatingNumber(0);
+      setComments("");
+    }
+    if (!product._id || successCreateProductReview || product._id !== a.id) {
+      dispatch(listProductDetail(a.id));
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+    }
   }, [dispatch, successCreateProductReview]);
   const addToCartHandler = () => {
     const path = `/cart/${a.id}?qty=${qty}`;
@@ -55,7 +72,6 @@ export default function ProductScreen(history) {
   };
   return (
     <>
-  
       <Link to="/" className="btn btn-light my-3">
         back to homepage
       </Link>
@@ -65,7 +81,7 @@ export default function ProductScreen(history) {
         <Message value="damger">{error}</Message>
       ) : (
         <>
-          <Meta title = {product.name}></Meta>
+          <Meta title={product.name}></Meta>
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />
@@ -149,6 +165,66 @@ export default function ProductScreen(history) {
               {product.reviews.length === 0 && (
                 <Message>No reviews added</Message>
               )}
+              <ListGroup variant="flush">
+                {product.reviews.map((e) => (
+                  <ListGroupItem key={e._id}>
+                    <strong>{e.name}</strong>
+                    <Rating value={e.rating} />
+                    <p>{e.comment}</p>
+                    <p>{e.createdAt.substring(0,10)}</p>
+                  </ListGroupItem>
+                ))}
+                <ListGroupItem>
+                  <h2>Write a review</h2>
+                  {successCreateProductReview && (
+                    <Message>review is submitted successfully</Message>
+                  )}
+                  {loadingCreateProductReview && <Loader />}
+                  {userInfo ? (
+                    <Form onSubmit={submitHandler}>
+                      <FormGroup controlId="rating">
+                        <FormLabel>Rating</FormLabel>
+                        <FormControl
+                          as="select"
+                          value={ratingNumber}
+                          onChange={(e) => {
+                            setRatingNumber(e.target.value);
+                          }}
+                        >
+                          <option value="">Select ...</option>
+                          <option value="1">1-poor</option>
+                          <option value="2">2-not so good</option>
+                          <option value="3">3-average</option>
+                          <option value="4">4-good</option>
+                          <option value="5">5-very good</option>
+                        </FormControl>
+                      </FormGroup>
+                      <FormGroup controlId="comments">
+                        <FormLabel>Comments</FormLabel>
+                        <FormControl
+                          as="textarea"
+                          value={comments}
+                          onChange={(e) => {
+                            setComments(e.target.value);
+                          }}
+                        ></FormControl>
+                      </FormGroup>
+                      <Button
+                        diabled={loadingCreateProductReview}
+                        type="submit"
+                        variant="primary"
+                      >
+                        Submit{" "}
+                      </Button>
+                    </Form>
+                  ) : (
+                    <Message>
+                      please <Link to="/login"> Sign in </Link>to write your
+                      review
+                    </Message>
+                  )}
+                </ListGroupItem>
+              </ListGroup>
             </Col>
           </Row>
         </>

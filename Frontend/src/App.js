@@ -27,6 +27,8 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<HomeScreen />} exact />
+            <Route path="/search/:keyword" element={<HomeScreen />}  />
+            <Route path="/page/:pageNumber" element={<HomeScreen />}  />
             <Route path="/productlist" element={<ProductListScreen />} exact />
             <Route path="admin/orderlist" element={<OrderListScreen/>} exact />
             <Route path="/products/:id" element={<ProductScreen />} />
