@@ -50,7 +50,7 @@ export default function HomeScreen() {
               </Col>
             ))}
           </Row>
-          <Page pages={pages} page={page} />
+          <Page pages={pages} page={page} keyword={keyword} />
         </>
       )}
     </>
