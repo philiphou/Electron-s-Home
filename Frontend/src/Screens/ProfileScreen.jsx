@@ -32,17 +32,16 @@ const ProfileScreen = () => {
     if (!userInfo) {
       navigate("/login");
     } else {
-      if (!user || !user.name || success) {
+      if (!user || !user.name || success || user.name!==userInfo.name) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
         dispatch(listMyOrder());
       } else {
-        console.log("ccc");
         setName(user.name);
         setEmail(user.email);
       }
     }
-  }, [userInfo, dispatch, user, success]);
+  }, [userInfo, dispatch, user, success,orders]);
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
