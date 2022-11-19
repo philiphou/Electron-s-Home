@@ -7,7 +7,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
-import seedRoutes from "./routes/seedRoutes.js";
+
 
 import connectDB from "./config/db.js";
 
@@ -25,7 +25,7 @@ if(process.env.NODE_ENV==='development'){
 const __dirname = path.resolve();
 app.use(express.static(__dirname));
 
-app.use('/api/seed', seedRoutes);
+
 app.use("/api/products", productRoutes);
 
 app.use("/users", userRoutes);
