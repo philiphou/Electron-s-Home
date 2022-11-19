@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build":"cd Backend && npm install && cd ../Frontend && npm install && npm run build --force",
+    "build": "cd Backend && npm install && cd ../Frontend && npm install && npm run build --force",
     "start": "node Backend/server",
     "server": "nodemon Backend/server",
     "client": " npm start --prefix Frontend",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/philiphou/Electron-s-Home#readme",
   "dependencies": {
+    "@paypal/react-paypal-js": "^7.8.1",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^16.0.2",
