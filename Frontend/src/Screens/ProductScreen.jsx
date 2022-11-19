@@ -165,7 +165,7 @@ export default function ProductScreen(history) {
               {product.reviews.length === 0 && (
                 <Message>No reviews added</Message>
               )}
-              <ListGroup variant="flush">
+              <ListGroup variant="flush" >
                 {product.reviews.map((e) => (
                   <ListGroupItem key={e._id}>
                     <strong>{e.name}</strong>

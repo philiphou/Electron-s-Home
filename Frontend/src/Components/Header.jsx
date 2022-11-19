@@ -20,7 +20,7 @@ export default function Header() {
     <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
       <Container>
         <LinkContainer to="/">
-          <Navbar.Brand>ElectronHome</Navbar.Brand>
+          <Navbar.Brand>PhilShop</Navbar.Brand>
         </LinkContainer>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

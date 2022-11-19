@@ -41,7 +41,7 @@ const ProfileScreen = () => {
         setEmail(user.email);
       }
     }
-  }, [userInfo, dispatch, user, success,orders]);
+  }, [userInfo, dispatch, user, success,orders,loadingOrders]);
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
