@@ -39,6 +39,12 @@ app.get("/paypal", (req, res) => {
 
 app.use(notFound);
 
+//  
+app.use(express.static(path.join(__dirname,'frontend/build')))
+app.get("*",(req,res)=>{
+  res.sendFile(path.join(__dirname,'frontend/build/index.html'))
+})
+
 //  global error taken
 
 app.use(errorHandler);
