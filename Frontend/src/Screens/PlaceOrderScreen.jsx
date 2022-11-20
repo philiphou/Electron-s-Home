@@ -36,10 +36,10 @@ const PlaceOrder = () => {
   const { order, success, error } = orderCreate;
   const Navigate = useNavigate();
   useEffect(() => {
-    if (success) {
+    if (order) {
       Navigate(`/order/${order._id}`);
     }
-  }, [success]);
+  }, [success,order,]);
   const dispatch = useDispatch();
   const placeOrderHandler = (e) => {
     dispatch(
