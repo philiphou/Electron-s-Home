@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "cd Backend && npm install && cd ../Frontend && npm install && npm run build --force",
+    "build": "npm install && cd ../Frontend && npm install && npm run build --force",
     "start": "node Backend/server",
     "server": "nodemon Backend/server",
     "client": " npm start --prefix Frontend",
