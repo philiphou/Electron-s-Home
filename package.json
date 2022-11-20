@@ -11,8 +11,10 @@
     "client": " npm start --prefix Frontend",
     "dev": "concurrently \"npm run server\" \"cross-env PORT=3000 npm run client\"",
     "data:import": "node Backend/seeder",
-    "data:delete": "node Backend/seeder -d"
-  },
+    "data:delete": "node Backend/seeder -d",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix Frontend && npm run build --prefix Frontend" 
+},
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/philiphou/Electron-s-Home.git"
