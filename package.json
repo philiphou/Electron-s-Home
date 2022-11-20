@@ -2,7 +2,7 @@
   "name": "electronhome",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "build": "npm install && cd Backend && npm install && cd ../Frontend && npm install && npm run build --force",
