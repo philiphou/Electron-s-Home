@@ -37,15 +37,17 @@ app.use("/api/uploads", express.static(path.join(__dirname, "/uploads")));
 app.get("/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
-//
-
-app.use(notFound);
 
 //  
 app.use(express.static(path.join(__dirname,'Frontend/build')))
 app.get("*",(req,res)=>{
   res.sendFile(path.join(__dirname,'Frontend/build/index.html'))
 })
+
+//
+
+app.use(notFound);
+
 
 //  global error taken
 
