@@ -23,6 +23,10 @@ const ProfileScreen = () => {
   let { loading, error, user } = userDetails;
   const updateProfie = useSelector((state) => state.userUpdateProfile);
   const { success } = updateProfie;
+  
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const {success:orderCreateSuccess,order:orderCreated}=orderCreate
+
   const orderListMy = useSelector((state) => state.orderListMy);
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
 
@@ -41,7 +45,7 @@ const ProfileScreen = () => {
         setEmail(user.email);
       }
     }
-  }, [userInfo, dispatch, user, success,orders,loadingOrders]);
+  }, [userInfo, dispatch, user, success,orders,orderCreated]);
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
