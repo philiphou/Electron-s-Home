@@ -20,7 +20,7 @@ export default function ProductCarousel() {
   ) : (
     <Carousel pause="hover"  id="cbgc" >
       {products.map((p) => (
-        <CarouselItem Interval = {1000} key={p._id}>
+        <CarouselItem interval = {3000} key={p._id}>
           <Link to={`/products/${p._id}`}>
             <Image src={p.image} alt={p.name} fluid></Image>
             <Carousel.Caption className="carousel-caption">
