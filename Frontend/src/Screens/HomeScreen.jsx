@@ -33,7 +33,9 @@ export default function HomeScreen() {
     <>
       <Meta></Meta>
       {!keyword ? (
-        <ProductCarousel></ProductCarousel>
+        <div className="container" id="abc">
+          <ProductCarousel />
+        </div>
       ) : (
         <Link to="/" className="btn btn-light">
           Go Back

@@ -18,13 +18,16 @@ export default function ProductCarousel() {
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
-    <Carousel pause="hover"  id="cbgc" >
+    <Carousel pause="hover" id="cbgc">
       {products.map((p) => (
-        <CarouselItem interval = {3000} key={p._id}>
-          <Link to={`/products/${p._id}`}>
-            <Image src={p.image} alt={p.name} fluid></Image>
-            <Carousel.Caption className="carousel-caption">
-                <h2>{p.name}(${p.price})</h2>
+        <CarouselItem interval={3000} key={p._id} className="citem">
+          <Link to={`/products/${p._id}`} id="clink">
+      
+              <Image src={p.image} alt={p.name} className='cimage' fluid></Image>
+                <Carousel.Caption className="carousel-caption">
+              <h2>
+                {p.name}(${p.price})
+              </h2>
             </Carousel.Caption>
           </Link>
         </CarouselItem>
