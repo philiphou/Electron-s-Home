@@ -9,7 +9,7 @@ export default function Footer() {
       <Container>
         <Row>
           <Col className='text-center py-3'>
-            Copyright &copy;  ElectronHome
+            Copyright &copy;  PhilShop
           </Col>
         </Row>
       </Container>
